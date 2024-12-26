@@ -1,5 +1,29 @@
 # CalenderView
 
+[![](https://jitpack.io/v/kevinvane/CalendarView.svg)](https://jitpack.io/#kevinvane/CalendarView)
+
+基于[CalenderView](https://github.com/huanghaibin-dev/CalendarView)`v3.7.1`修改:
+
+### Step 1. Add the JitPack repository to your build file 
+Add it in your root build.gradle at the end of repositories:
+```gradle
+	dependencyResolutionManagement {
+		repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+		repositories {
+			mavenCentral()
+			maven { url 'https://jitpack.io' }
+		}
+	}
+```
+
+### Add the dependency
+```gradle
+dependencies {
+    implementation 'com.github.kevinvane:CalendarView:3.7.1'
+}
+```
+--------------------------------------
+
 An elegant CalendarView on Android platform.
 Freely draw UI with canvas, fast、efficient and low memory.
 Support month view、 week view、year view、 custom week start、lunar calendar and so on.
