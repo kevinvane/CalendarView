@@ -3,10 +3,10 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/CalendarView.iml" filepath="$PROJECT_DIR$/.idea/modules/CalendarView.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/CalendarView.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/CalendarView.app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/CalendarView.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/CalendarView.app.androidTest.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/CalendarView.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/CalendarView.app.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/CalendarView.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/CalendarView.app.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app2/CalendarView.app2.iml" filepath="$PROJECT_DIR$/.idea/modules/app2/CalendarView.app2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app2/CalendarView.app2.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app2/CalendarView.app2.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app2/CalendarView.app2.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app2/CalendarView.app2.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app2/CalendarView.app2.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app2/CalendarView.app2.unitTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/calendarview/CalendarView.calendarview.iml" filepath="$PROJECT_DIR$/.idea/modules/calendarview/CalendarView.calendarview.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/calendarview/CalendarView.calendarview.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/calendarview/CalendarView.calendarview.androidTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/calendarview/CalendarView.calendarview.main.iml" filepath="$PROJECT_DIR$/.idea/modules/calendarview/CalendarView.calendarview.main.iml" />

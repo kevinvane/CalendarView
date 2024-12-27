@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <com.haibin.calendarview.CalendarLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <!--所有的属性： ./QUESTION_ZH.md-->
+        <!--app:calendar_match_parent="true" 设置全屏-->
+        <com.haibin.calendarview.CalendarView
+            android:id="@+id/calendarView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#FFF"
+            app:calendar_match_parent="true"
+            app:calendar_padding="20dp"
+            app:current_day_text_color="#fe4031"
+            app:current_month_text_color="#000"
+            app:day_text_size="26sp"
+            app:min_year="2020"
+            app:month_view_auto_select_day="first_day_of_month"
+            app:month_view_show_mode="mode_only_current"
+            app:other_month_text_color="#a1a1a1"
+            app:selected_text_color="#FFFFFF"
+            app:selected_theme_color="#fe4031"
+            app:week_background="#FFD600"
+            app:week_text_color="#FFFFFF"
+            app:week_text_size="28sp" />
+
+    </com.haibin.calendarview.CalendarLayout>
+</LinearLayout>

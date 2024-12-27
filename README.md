@@ -19,9 +19,12 @@ Add it in your root build.gradle at the end of repositories:
 ### Add the dependency
 ```gradle
 dependencies {
-    implementation 'com.github.kevinvane:CalendarView:3.7.1'
+    implementation 'com.github.kevinvane:CalendarView:3.7.1.x'
 }
 ```
+
+![](./app2/preview/0.png)
+![](./app2/preview/1.png)
 --------------------------------------
 
 An elegant CalendarView on Android platform.

@@ -1,2 +1,3 @@
 include ':calendarview'
 // include ':app',
+include ':app2'
