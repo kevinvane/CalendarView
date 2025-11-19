@@ -8,7 +8,7 @@ android {
         //noinspection OldTargetApi
         targetSdkVersion 31
         versionCode 371
-        versionName "3.7.1"
+        versionName "3.7.1.4"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
     }

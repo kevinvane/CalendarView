@@ -1543,7 +1543,7 @@ public class CalendarView extends FrameLayout {
      *
      * @param weekStart 周起始
      */
-    private void setWeekStart(int weekStart) {
+    public void setWeekStart(int weekStart) {
         if (weekStart != CalendarViewDelegate.WEEK_START_WITH_SUN &&
                 weekStart != CalendarViewDelegate.WEEK_START_WITH_MON &&
                 weekStart != CalendarViewDelegate.WEEK_START_WITH_SAT)
