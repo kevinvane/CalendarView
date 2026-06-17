@@ -115,6 +115,8 @@
             <enum name="last_select_day" value="1" />
             <enum name="last_select_day_ignore_current" value="2" />
         </attr>
+        <!-- 全屏周视图 -->
+        <attr name="week_view_full_screen" format="boolean" />
     </declare-styleable>
 
 

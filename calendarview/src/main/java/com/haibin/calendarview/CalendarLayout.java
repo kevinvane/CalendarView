@@ -530,6 +530,25 @@ public class CalendarLayout extends LinearLayout {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 
+        int height = MeasureSpec.getSize(heightMeasureSpec);
+        int weekBarHeight = CalendarUtil.dipToPx(getContext(), 1)
+                + mDelegate.getWeekBarHeight();
+
+        if (mDelegate.isWeekViewFullScreen() && mWeekPager.getVisibility() == VISIBLE) {
+            // Full-screen week mode: CalendarView fills full height (WeekBar is inside CalendarView)
+            if (mCalendarView != null) {
+                int calendarHeightSpec = MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY);
+                mCalendarView.measure(widthMeasureSpec, calendarHeightSpec);
+                mCalendarView.layout(mCalendarView.getLeft(), mCalendarView.getTop(),
+                        mCalendarView.getRight(), mCalendarView.getTop() + height);
+            }
+            if (mContentView != null && mContentView.getVisibility() != INVISIBLE) {
+                mContentView.setVisibility(INVISIBLE);
+            }
+            setMeasuredDimension(MeasureSpec.getSize(widthMeasureSpec), height);
+            return;
+        }
+
         if (mContentView == null || mCalendarView == null) {
             super.onMeasure(widthMeasureSpec, heightMeasureSpec);
             return;
@@ -537,16 +556,12 @@ public class CalendarLayout extends LinearLayout {
 
         int year = mDelegate.mIndexCalendar.getYear();
         int month = mDelegate.mIndexCalendar.getMonth();
-        int weekBarHeight = CalendarUtil.dipToPx(getContext(), 1)
-                + mDelegate.getWeekBarHeight();
 
         int monthHeight = CalendarUtil.getMonthViewHeight(year, month,
                 mDelegate.getCalendarItemHeight(),
                 mDelegate.getWeekStart(),
                 mDelegate.getMonthViewShowMode())
                 + weekBarHeight;
-
-        int height = MeasureSpec.getSize(heightMeasureSpec);
 
         if (mDelegate.isFullScreenCalendar()) {
             super.onMeasure(widthMeasureSpec, heightMeasureSpec);
@@ -681,14 +696,26 @@ public class CalendarLayout extends LinearLayout {
      */
     public boolean expand(int duration) {
         if (isAnimating ||
-                mCalendarShowMode == CALENDAR_SHOW_MODE_ONLY_WEEK_VIEW ||
-                mContentView == null)
+                mCalendarShowMode == CALENDAR_SHOW_MODE_ONLY_WEEK_VIEW)
             return false;
+        if (mContentView == null) {
+            mWeekPager.setVisibility(GONE);
+            mMonthView.setVisibility(VISIBLE);
+            mMonthView.setTranslationY(0);
+            isWeekView = false;
+            requestLayout();
+            return true;
+        }
         if (mMonthView.getVisibility() != VISIBLE) {
             mWeekPager.setVisibility(GONE);
             onShowMonthView();
             isWeekView = false;
             mMonthView.setVisibility(VISIBLE);
+        }
+        // Full-screen week mode: restore ContentView visibility before animation
+        if (mDelegate != null && mDelegate.isWeekViewFullScreen() &&
+                mContentView.getVisibility() != VISIBLE) {
+            mContentView.setVisibility(VISIBLE);
         }
         ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(mContentView,
                 "translationY", mContentView.getTranslationY(), 0f);
@@ -736,8 +763,14 @@ public class CalendarLayout extends LinearLayout {
         if (mGestureMode == GESTURE_MODE_DISABLED) {
             requestLayout();
         }
-        if (isAnimating || mContentView == null) {
+        if (isAnimating) {
             return false;
+        }
+        if (mContentView == null) {
+            showWeek();
+            isWeekView = true;
+            requestLayout();
+            return true;
         }
         ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(mContentView,
                 "translationY", mContentView.getTranslationY(), -mContentViewTranslateY);
@@ -832,6 +865,9 @@ public class CalendarLayout extends LinearLayout {
         }
         mWeekPager.setVisibility(GONE);
         mMonthView.setVisibility(VISIBLE);
+        if (mDelegate != null && mDelegate.isWeekViewFullScreen() && mContentView != null) {
+            mContentView.setVisibility(VISIBLE);
+        }
     }
 
     /**
@@ -844,6 +880,10 @@ public class CalendarLayout extends LinearLayout {
             mWeekPager.setVisibility(VISIBLE);
         }
         mMonthView.setVisibility(INVISIBLE);
+        if (mDelegate != null && mDelegate.isWeekViewFullScreen() && mContentView != null) {
+            mContentView.setVisibility(INVISIBLE);
+            requestLayout();
+        }
     }
 
     /**

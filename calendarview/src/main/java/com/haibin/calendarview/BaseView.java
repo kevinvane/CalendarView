@@ -123,6 +123,11 @@ public abstract class BaseView extends View implements View.OnClickListener, Vie
     protected float mTextBaseLine;
 
     /**
+     * 全屏周视图模式下，日期数字绘制在列顶部的基线Y坐标
+     */
+    protected float mDayTextBaseLine;
+
+    /**
      * 点击的x、y坐标
      */
     protected float mX, mY;

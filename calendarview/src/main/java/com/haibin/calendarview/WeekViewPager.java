@@ -421,8 +421,12 @@ public final class WeekViewPager extends ViewPager {
      */
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        heightMeasureSpec = MeasureSpec.makeMeasureSpec(mDelegate.getCalendarItemHeight(), MeasureSpec.EXACTLY);
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        if (mDelegate.isWeekViewFullScreen()) {
+            super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        } else {
+            heightMeasureSpec = MeasureSpec.makeMeasureSpec(mDelegate.getCalendarItemHeight(), MeasureSpec.EXACTLY);
+            super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        }
     }
 
     /**

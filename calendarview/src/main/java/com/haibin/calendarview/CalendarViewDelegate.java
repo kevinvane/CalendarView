@@ -306,6 +306,11 @@ final class CalendarViewDelegate {
     private boolean isFullScreenCalendar;
 
     /**
+     * 是否是全屏周视图
+     */
+    private boolean mWeekViewFullScreen;
+
+    /**
      * 星期栏的高度
      */
     private int mWeekBarHeight;
@@ -496,6 +501,7 @@ final class CalendarViewDelegate {
         mCalendarItemHeight = (int) array.getDimension(R.styleable.CalendarView_calendar_height,
                 CalendarUtil.dipToPx(context, 56));
         isFullScreenCalendar = array.getBoolean(R.styleable.CalendarView_calendar_match_parent, false);
+        mWeekViewFullScreen = array.getBoolean(R.styleable.CalendarView_week_view_full_screen, false);
 
         //年视图相关
         mYearViewMonthTextSize = array.getDimensionPixelSize(R.styleable.CalendarView_year_view_month_text_size,
@@ -1026,6 +1032,10 @@ final class CalendarViewDelegate {
 
     boolean isFullScreenCalendar() {
         return isFullScreenCalendar;
+    }
+
+    boolean isWeekViewFullScreen() {
+        return mWeekViewFullScreen;
     }
 
     final void updateSelectCalendarScheme() {

@@ -16,6 +16,7 @@
 package com.haibin.calendarview;
 
 import android.content.Context;
+import android.graphics.Paint;
 
 /**
  * 最基础周视图，因为日历UI采用热插拔实现，所以这里必须继承实现，达到UI一致即可
@@ -260,8 +261,17 @@ public abstract class BaseWeekView extends BaseView {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        heightMeasureSpec = MeasureSpec.makeMeasureSpec(mItemHeight, MeasureSpec.EXACTLY);
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        if (mDelegate != null && mDelegate.isWeekViewFullScreen()) {
+            super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+            mItemHeight = getMeasuredHeight();
+            // Compute mDayTextBaseLine for day number at column top
+            Paint.FontMetrics metrics = mCurMonthTextPaint.getFontMetrics();
+            float textHeight = metrics.descent - metrics.ascent;
+            mDayTextBaseLine = (int) (textHeight + CalendarUtil.dipToPx(getContext(), 4));
+        } else {
+            heightMeasureSpec = MeasureSpec.makeMeasureSpec(mItemHeight, MeasureSpec.EXACTLY);
+            super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        }
     }
 
     /**
