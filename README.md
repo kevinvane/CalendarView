@@ -23,8 +23,9 @@ dependencies {
 }
 ```
 
-![](./app2/preview/0.png)
-![](./app2/preview/1.png)
+![默认](./app2/preview/activity_main.png)
+![自定义](./app2/preview/activity_main_custom.png)
+![新设计的WeekView](./app2/preview/activity_main_custom_only_week.png)
 --------------------------------------
 
 An elegant CalendarView on Android platform.
