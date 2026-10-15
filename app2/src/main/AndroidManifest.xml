@@ -21,6 +21,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".DayPanelActivity"
+            android:exported="false"
+            android:label="@string/day_panel_title"
+            android:parentActivityName=".MainActivity" />
     </application>
 
 </manifest>

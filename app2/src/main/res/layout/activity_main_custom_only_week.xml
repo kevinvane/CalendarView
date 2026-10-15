@@ -4,12 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
     <com.haibin.calendarview.CalendarLayout
         android:id="@+id/calendarLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         app:calendar_show_mode="only_week_view"
         android:orientation="vertical">
 
@@ -38,4 +40,11 @@
         <!--  week_bar_view ，week_text_size 和 week_text_color 无效-->
 
     </com.haibin.calendarview.CalendarLayout>
+
+    <Button
+        android:id="@+id/btn_day_panel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp"
+        android:text="@string/open_day_panel" />
 </LinearLayout>

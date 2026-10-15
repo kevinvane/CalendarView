@@ -2,8 +2,10 @@ package com.demo.calendar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.widget.Button;
 
 import com.haibin.calendarview.Calendar;
 import com.haibin.calendarview.CalendarView;
@@ -29,6 +31,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main_custom_only_week);
         mCalendarView = findViewById(R.id.calendarView);
         initSchemeData();
+
+        // P0 日视图（两栏）Demo 入口
+        Button btnDayPanel = findViewById(R.id.btn_day_panel);
+        btnDayPanel.setOnClickListener(new android.view.View.OnClickListener() {
+            @Override
+            public void onClick(android.view.View v) {
+                startActivity(new Intent(MainActivity.this, DayPanelActivity.class));
+            }
+        });
     }
 
     private void initSchemeData() {
