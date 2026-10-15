@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  时间网格周视图 Demo：
+  上层 CalendarView（only_week_view + 自定义 ScheduleWeekBar）只做"周选择器"；
+  下层 TimeGridView 为自建时间网格，纵向滚动 + 事件块按分钟定位，库内零改动。
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:orientation="vertical">
+
+    <com.haibin.calendarview.CalendarLayout
+        android:id="@+id/calendarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:calendar_show_mode="only_week_view">
+
+        <com.haibin.calendarview.CalendarView
+            android:id="@+id/calendarView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FFFFFF"
+            app:calendar_height="44dp"
+            app:calendar_padding_left="52dp"
+            app:calendar_padding_right="0dp"
+            app:current_day_text_color="#F45B3F"
+            app:current_month_text_color="#26262B"
+            app:day_text_size="15sp"
+            app:min_year="2020"
+            app:month_view_auto_select_day="first_day_of_month"
+            app:other_month_text_color="#C4C4C8"
+            app:selected_text_color="#F45B3F"
+            app:selected_theme_color="#F45B3F"
+            app:week_bar_height="64dp"
+            app:week_bar_view="com.demo.calendar.view.ScheduleWeekBar"
+            app:week_view="com.demo.calendar.view.SimpleBlackWeekView" />
+    </com.haibin.calendarview.CalendarLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#EEEEEE" />
+
+    <ScrollView
+        android:id="@+id/scroll_time_grid"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true"
+        android:overScrollMode="never"
+        android:scrollbars="none">
+
+        <com.demo.calendar.view.TimeGridView
+            android:id="@+id/timeGridView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </ScrollView>
+
+</LinearLayout>

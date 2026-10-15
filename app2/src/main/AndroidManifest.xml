@@ -27,6 +27,12 @@
             android:exported="false"
             android:label="@string/day_panel_title"
             android:parentActivityName=".MainActivity" />
+
+        <activity
+            android:name=".TimeGridActivity"
+            android:exported="false"
+            android:label="@string/time_grid_title"
+            android:parentActivityName=".MainActivity" />
     </application>
 
 </manifest>

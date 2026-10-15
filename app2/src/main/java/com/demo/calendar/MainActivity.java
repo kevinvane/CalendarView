@@ -40,6 +40,15 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, DayPanelActivity.class));
             }
         });
+
+        // 时间网格周视图 Demo 入口
+        Button btnTimeGrid = findViewById(R.id.btn_time_grid);
+        btnTimeGrid.setOnClickListener(new android.view.View.OnClickListener() {
+            @Override
+            public void onClick(android.view.View v) {
+                startActivity(new Intent(MainActivity.this, TimeGridActivity.class));
+            }
+        });
     }
 
     private void initSchemeData() {

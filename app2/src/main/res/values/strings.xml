@@ -3,4 +3,6 @@
     <string name="day_panel_title">日视图 Demo</string>
     <string name="day_panel_empty">当天没有日程</string>
     <string name="open_day_panel">日视图 Demo（左月历 + 右日程）</string>
+    <string name="time_grid_title">时间网格周视图 Demo</string>
+    <string name="open_time_grid">时间网格周视图 Demo（竞品对标）</string>
 </resources>
