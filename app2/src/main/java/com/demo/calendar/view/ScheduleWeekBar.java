@@ -5,10 +5,13 @@ import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.View;
+import android.view.ViewParent;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.haibin.calendarview.Calendar;
+import com.haibin.calendarview.CalendarView;
 import com.haibin.calendarview.WeekBar;
 
 import java.util.List;
@@ -16,8 +19,9 @@ import java.util.List;
 /**
  * 时间网格周视图表头（对标竞品）："Sun 24" 两行式单元格，
  * 选中日期显示红色圆圈白字。
- * WeekBar 无法感知当前周日期，数字部分由 Activity 通过 updateWeek() 驱动；
- * 高亮部分由 onDateSelected() 自行维护。
+ * 表头单元格整格可点，点击切换日期（WeekBar 默认无上行选中能力，
+ * 这里沿父链找到 CalendarView 后调 scrollToCalendar）。
+ * WeekBar 无法感知当前周日期，数字部分由 onDateSelected / updateWeek 驱动。
  */
 public class ScheduleWeekBar extends WeekBar {
 
@@ -26,8 +30,11 @@ public class ScheduleWeekBar extends WeekBar {
     private static final int COLOR_TEXT_LIGHT = 0xFF9A9AA0;
     private static final int COLOR_ACCENT = 0xFFF45B3F;
 
+    private final LinearLayout[] mCells = new LinearLayout[7];
     private final TextView[] mWeekdays = new TextView[7];
     private final TextView[] mNumbers = new TextView[7];
+    /** 当前周 7 天，供表头点击切换日期使用 */
+    private final Calendar[] mWeekDays = new Calendar[7];
 
     public ScheduleWeekBar(Context context) {
         super(context);
@@ -36,17 +43,45 @@ public class ScheduleWeekBar extends WeekBar {
         // 表头 / 周选择器选中框 / 时间网格列三者才能对齐
         setPadding(dp(52), 0, 0, 0);
         for (int i = 0; i < 7; i++) {
+            final int index = i;
             LinearLayout cell = new LinearLayout(context);
             cell.setOrientation(LinearLayout.VERTICAL);
             cell.setGravity(Gravity.CENTER);
             cell.setLayoutParams(new LayoutParams(0, LayoutParams.MATCH_PARENT, 1f));
+            // 整格可点：可见热区 = 生效热区
+            cell.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    switchDay(index);
+                }
+            });
 
             mWeekdays[i] = buildLabel(context, 12, false);
             mNumbers[i] = buildLabel(context, 17, true);
             cell.addView(mWeekdays[i]);
             cell.addView(mNumbers[i]);
+            mCells[i] = cell;
             addView(cell);
         }
+    }
+
+    /** 点击表头第 index 格：切换到该列日期 */
+    private void switchDay(int index) {
+        Calendar day = mWeekDays[index];
+        CalendarView calendarView = findCalendarView();
+        if (day == null || calendarView == null) {
+            return;
+        }
+        calendarView.scrollToCalendar(day.getYear(), day.getMonth(), day.getDay());
+    }
+
+    /** WeekBar 不持有 CalendarView 引用，沿父链向上找 */
+    private CalendarView findCalendarView() {
+        ViewParent parent = getParent();
+        while (parent != null && !(parent instanceof CalendarView)) {
+            parent = parent.getParent();
+        }
+        return (CalendarView) parent;
     }
 
     private TextView buildLabel(Context context, float sizeSp, boolean number) {
@@ -76,6 +111,7 @@ public class ScheduleWeekBar extends WeekBar {
         }
         for (int i = 0; i < 7; i++) {
             Calendar calendar = days.get(i);
+            mWeekDays[i] = calendar;
             mWeekdays[i].setText(WEEK_NAMES[i]);
             mNumbers[i].setText(String.valueOf(calendar.getDay()));
         }
@@ -99,12 +135,17 @@ public class ScheduleWeekBar extends WeekBar {
         updateWeekFrom(calendar, index);
     }
 
-    /** 由任意一天反推整周日期并写入表头 */
+    /** 由任意一天反推整周日期并写入表头（翻周 / 选日都会走到，借此维护 mWeekDays） */
     private void updateWeekFrom(Calendar selected, int selectedIndex) {
         java.util.Calendar date = java.util.Calendar.getInstance();
         date.set(selected.getYear(), selected.getMonth() - 1, selected.getDay(), 12, 0, 0);
         date.add(java.util.Calendar.DATE, -selectedIndex);
         for (int i = 0; i < 7; i++) {
+            Calendar day = new Calendar();
+            day.setYear(date.get(java.util.Calendar.YEAR));
+            day.setMonth(date.get(java.util.Calendar.MONTH) + 1);
+            day.setDay(date.get(java.util.Calendar.DAY_OF_MONTH));
+            mWeekDays[i] = day;
             mWeekdays[i].setText(WEEK_NAMES[i]);
             mNumbers[i].setText(String.valueOf(date.get(java.util.Calendar.DAY_OF_MONTH)));
             date.add(java.util.Calendar.DATE, 1);
